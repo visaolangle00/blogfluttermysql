@@ -1,5 +1,6 @@
 import 'package:blogfluttermysql/components/TopPostCard.dart';
 import 'package:blogfluttermysql/page/ContactUs.dart';
+import 'package:blogfluttermysql/page/Login.dart';
 import 'package:blogfluttermysql/page/aboutUs.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -78,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             ListTile(
               onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
                 debugPrint("Login");
               },
               leading: Icon(Icons.lock_open,color: Colors.red,),
