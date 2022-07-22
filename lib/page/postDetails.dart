@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
+import 'package:flutter_share/flutter_share.dart';
 
 class PostDetails extends StatefulWidget {
   final id;
@@ -33,7 +33,6 @@ class _PostDetailsState extends State<PostDetails> {
   TextEditingController commentsController = TextEditingController();
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-
   String isLikeOrDislike = "";
 
   @override
@@ -41,23 +40,29 @@ class _PostDetailsState extends State<PostDetails> {
     super.initState();
     getLikes();
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    var android = AndroidInitializationSettings('@mipmap/ic_launcher'); // flutter logo or own icon
+    var android = AndroidInitializationSettings(
+        '@mipmap/ic_launcher'); // flutter logo or own icon
     var ios = IOSInitializationSettings();
-    var initilize = InitializationSettings(android,ios);
-    flutterLocalNotificationsPlugin.initialize(initilize,onSelectNotification: onSelectNotification);
+    var initilize = InitializationSettings(android, ios);
+    flutterLocalNotificationsPlugin.initialize(initilize,
+        onSelectNotification: onSelectNotification);
   }
 
-  Future onSelectNotification(String payload) async{
-    if(payload !=null){
-        debugPrint("Notification :" +payload);
+
+  Future onSelectNotification(String payload) async {
+    if (payload != null) {
+      debugPrint("Notification :" + payload);
     }
   }
 
-  Future showNotification() async{
-    var android = AndroidNotificationDetails('channelId','channelName','channelDescription');
+  Future showNotification() async {
+    var android = AndroidNotificationDetails(
+        'channelId', 'channelName', 'channelDescription');
     var ios = IOSNotificationDetails();
-    var platform = NotificationDetails(android,ios);
-    flutterLocalNotificationsPlugin.show(0,'Blog notification',commentsController.text,platform,payload: 'some details value');
+    var platform = NotificationDetails(android, ios);
+    flutterLocalNotificationsPlugin.show(
+        0, 'Blog notification', commentsController.text, platform,
+        payload: 'some details value');
   }
 
   Future addLike() async {
@@ -87,6 +92,8 @@ class _PostDetailsState extends State<PostDetails> {
     }
     print(isLikeOrDislike);
   }
+
+
 
   Future addComments() async {
     var url = "http://192.168.1.13/flutter/blog_flutter/addComments.php";
@@ -197,8 +204,20 @@ class _PostDetailsState extends State<PostDetails> {
                         ),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.thumb_up),
-                  )
+                    icon: Icon(Icons.thumb_down),
+                  ),
+                  InkWell(
+                    child: Icon(Icons.share),
+                    onTap: () async {
+                      await FlutterShare.share(
+                        title: widget.title,
+                        text: widget.body,
+                        linkUrl: 'https://flutter.dv/',
+                        chooserTitle: 'Flutter blog share',
+                      );
+                    },
+                  ),
+
                 ],
               ),
             ),
