@@ -13,7 +13,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
   List category = List();
 
   Future getAllCategory() async {
-    var url = "http://192.168.1.10/flutter/blog_flutter/CategoryAll.php";
+    var url = "http://192.168.1.13/flutter/blog_flutter/CategoryAll.php";
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
@@ -60,7 +60,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
             ),
             title: Text(category[index]['name']),
             trailing: IconButton(onPressed: () async{
-              var url = "http://192.168.1.10/flutter/blog_flutter/deleteCategory.php";
+              var url = "http://192.168.1.13/flutter/blog_flutter/deleteCategory.php";
               var response = await http.post(url, body:{"id":category[index]['id']});
               if(response.statusCode ==200){
                showDialog(context: (context), builder: (context) => AlertDialog(

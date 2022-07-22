@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List searchList = [];
 
   Future showAllPost() async {
-    var url = "http://192.168.1.10/flutter/blog_flutter/postAll.php";
+    var url = "http://192.168.1.13/flutter/blog_flutter/postAll.php";
     var response = await http.get(url, headers: {"Accept": "application/json"});
 
     if (response.statusCode == 200) {
@@ -235,7 +235,7 @@ class SearchPost extends SearchDelegate<String> {
   List searchTitle = List();
 
   Future showAllPost() async {
-    var url = "http://192.168.1.10/flutter/blog_flutter/searchPost.php";
+    var url = "http://192.168.1.13/flutter/blog_flutter/searchPost.php";
     var response = await http.post(url, body: {'title': query});
 
     if (response.statusCode == 200) {
@@ -294,7 +294,7 @@ class SearchPost extends SearchDelegate<String> {
                     Center(
                         child: Container(
                       child: Image.network(
-                        'http://192.168.1.10/flutter/blog_flutter/uploads/${list['image']}',
+                        'http://192.168.1.13/flutter/blog_flutter/uploads/${list['image']}',
                         height: 250,
                       ),
                     )),

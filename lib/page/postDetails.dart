@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:blogfluttermysql/page/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,39 +14,76 @@ class PostDetails extends StatefulWidget {
   final author;
   final postDate;
   final userEmail;
-  PostDetails({this.id,
-        this.title,
+  PostDetails(
+      {this.id,
+      this.title,
       this.image,
       this.body,
       this.author,
       this.postDate,
-      this.userEmail =""});
+      this.userEmail = ""});
 
   @override
   _PostDetailsState createState() => _PostDetailsState();
 }
 
 class _PostDetailsState extends State<PostDetails> {
+  TextEditingController commentsController = TextEditingController();
+
+  String isLikeOrDislike = "";
+
+  @override
+  void initState() {
+    super.initState();
+    getLikes();
+  }
+
+  Future addLike() async {
+    var url = "http://192.168.1.13/flutter/blog_flutter/addLike.php";
+    var response = await http.post(url, body: {
+      //"id": widget.categoryList[widget.index]['id'],
+      "user_email": widget.userEmail,
+      "post_id": widget.id,
+    });
+    if (response.statusCode == 200) {
+      print('Thanks');
+    }
+  }
+
+  Future getLikes() async {
+    var url = "http://192.168.1.13/flutter/blog_flutter/selectLike.php";
+    var response = await http.post(url, body: {
+      //"id": widget.categoryList[widget.index]['id'],
+      "user_email": widget.userEmail,
+      "post_id": widget.id,
+    });
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+      setState(() {
+        isLikeOrDislike = data;
+      });
+    }
+    print(isLikeOrDislike);
+  }
+
+  Future addComments() async {
+    var url = "http://192.168.1.13/flutter/blog_flutter/addComments.php";
+    var response = await http.post(url, body: {
+      //"id": widget.categoryList[widget.index]['id'],
+      "comment": commentsController.text,
+      "user_email": widget.userEmail,
+      "post_id": widget.id,
+    });
+    if (response.statusCode == 200) {
+      Fluttertoast.showToast(
+        msg: 'Comments Publish Successfull',
+      );
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController commentsController = TextEditingController();
-
-
-    Future addComments() async{
-      var url = "http://192.168.1.10/flutter/blog_flutter/addComments.php";
-      var response = await http.post(url, body: {
-        //"id": widget.categoryList[widget.index]['id'],
-        "comment": commentsController.text,
-        "user_email": widget.userEmail,
-        "post_id":widget.id,
-      });
-      if(response.statusCode ==200){
-        Fluttertoast.showToast(msg: 'Comments Publish Successfull',);
-        Navigator.pop(context);
-      }
-    }
-
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Post Details"),
@@ -83,6 +122,61 @@ class _PostDetailsState extends State<PostDetails> {
                 style: TextStyle(
                   fontSize: 20,
                 ),
+              ),
+            ),
+            ////////////////////////////
+            Container(
+              child: Row(
+                children: [
+                  isLikeOrDislike == "ONE"
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            onTap: () {
+                              addLike().whenComplete(() => getLikes());
+                            },
+                            child: Text(
+                              'Unlike',
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                          ),
+                        )
+                      : IconButton(
+                          icon: Icon(Icons.thumb_up),
+                          color: Colors.green,
+                          onPressed: () {
+                            if (widget.userEmail == "") {
+                              showDialog(
+                                context: (context),
+                                builder: (context) => AlertDialog(
+                                  title: Text('Message'),
+                                  content: Text('Login First Then...'),
+                                  actions: [
+                                    RaisedButton(
+                                      color: Colors.red,
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => Login(),
+                                          ),
+                                        );
+                                      },
+                                      child: Text("Login"),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            } else {
+                              addLike().whenComplete(() => getLikes());
+                            }
+                          },
+                        ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.thumb_up),
+                  )
+                ],
               ),
             ),
             SizedBox(
@@ -140,7 +234,7 @@ class _PostDetailsState extends State<PostDetails> {
                       },
                       onChanged: (value) {
                         print(widget.userEmail);
-                        if (widget.userEmail =="") {
+                        if (widget.userEmail == "") {
                           showDialog(
                               context: (context),
                               builder: (context) => AlertDialog(

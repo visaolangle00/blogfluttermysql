@@ -17,7 +17,7 @@ class _SignUpState extends State<SignUp> {
   TextEditingController name = TextEditingController();
 
   Future signUp() async {
-    var url = "http://192.168.1.10/flutter/blog_flutter/register.php";
+    var url = "http://192.168.1.13/flutter/blog_flutter/register.php";
     var response = await http
         .post(url, body: {"username":user.text, "password":pass.text, "name":name.text});
    // .post(url, body: {"username":"testest", "password":"123"});
