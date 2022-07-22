@@ -20,7 +20,7 @@ class _RecentPostItemState extends State<RecentPostItem> {
       setState(() {
         recentPost = jsonData;
       });
-      print(jsonData);
+     // print(jsonData);
       return jsonData;
     }
   }
@@ -91,7 +91,7 @@ class _RecentItemState extends State<RecentItem> {
                       ),
                     ),
                   );
-                  debugPrint(widget.title);
+                  //debugPrint(widget.title);
                 },
                 child: Text(
                   widget.title,

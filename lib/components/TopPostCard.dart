@@ -21,7 +21,7 @@ class _TopPostCardState extends State<TopPostCard> {
       setState(() {
         postData = jsonData;
       });
-      print(jsonData);
+      //print(jsonData);
       return jsonData;
     }
   }

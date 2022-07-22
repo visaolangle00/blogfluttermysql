@@ -29,6 +29,11 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  final name;
+  final email;
+
+  MyHomePage({this.name = "Guest", this.email = ""});
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -46,45 +51,87 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: BoxDecoration(color: Colors.pinkAccent),
               currentAccountPicture: GestureDetector(
                 child: CircleAvatar(
-                  backgroundColor:Colors.white ,
+                  backgroundColor: Colors.white,
                   child: Icon(Icons.person),
                 ),
               ),
-              accountName: Text('Shawon'),
-              accountEmail: Text("Shawon@gmail.com"),
+              accountName: Text(widget.name),
+              accountEmail: Text(widget.email),
             ),
             ListTile(
-              onTap: (){
+              onTap: () {
                 debugPrint("Home");
               },
-              leading: Icon(Icons.home,color: Colors.green,),
-              title: Text('Home',style: TextStyle(color: Colors.green),),
+              leading: Icon(
+                Icons.home,
+                color: Colors.green,
+              ),
+              title: Text(
+                'Home',
+                style: TextStyle(color: Colors.green),
+              ),
             ),
             ListTile(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>AboutUs()));
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AboutUs()));
                 debugPrint("About Us");
               },
-              leading: Icon(Icons.label,color: Colors.grey,),
-              title: Text('About Us',style: TextStyle(color: Colors.grey),),
+              leading: Icon(
+                Icons.label,
+                color: Colors.grey,
+              ),
+              title: Text(
+                'About Us',
+                style: TextStyle(color: Colors.grey),
+              ),
             ),
             ListTile(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactUs()));
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ContactUs()));
                 debugPrint("Contact Us");
               },
-              leading: Icon(Icons.contacts,color: Colors.amber,),
-              title: Text('Contact Us',style: TextStyle(color: Colors.amber),),
+              leading: Icon(
+                Icons.contacts,
+                color: Colors.amber,
+              ),
+              title: Text(
+                'Contact Us',
+                style: TextStyle(color: Colors.amber),
+              ),
             ),
-
-            ListTile(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
-                debugPrint("Login");
-              },
-              leading: Icon(Icons.lock_open,color: Colors.red,),
-              title: Text('Login',style: TextStyle(color: Colors.red),),
-            ),
+            widget.name =="Guest"
+                ? ListTile(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Login()));
+                      debugPrint("Login");
+                    },
+                    leading: Icon(
+                      Icons.lock,
+                      color: Colors.red,
+                    ),
+                    title: Text(
+                      'Login',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  )
+                : ListTile(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MyHomePage()));
+                      debugPrint("Login");
+                    },
+                    leading: Icon(
+                      Icons.lock_open,
+                      color: Colors.red,
+                    ),
+                    title: Text(
+                      'Logout',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
           ],
         ),
       );

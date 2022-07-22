@@ -23,6 +23,7 @@ class _SelectCategoryByState extends State<SelectCategoryBy> {
       setState(() {
         categoryByPost = jsonData;
       });
+      print(response.body);
     }
   }
 

@@ -73,7 +73,7 @@ class _CategoryItemState extends State<CategoryItem> {
                     builder: (context) => SelectCategoryBy(
                           categoryName: widget.categoryName,
                         )));
-            debugPrint(widget.categoryName);
+           // debugPrint(widget.categoryName);
           },
         ),
       ),
