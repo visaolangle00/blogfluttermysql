@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:blogfluttermysql/page/SelectCategoryBy.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -66,6 +67,9 @@ class _CategoryItemState extends State<CategoryItem> {
                 color: Colors.grey, fontSize: 18, fontWeight: FontWeight.bold),
           ),
           onTap: () {
+            Navigator.push(context,MaterialPageRoute(builder: (context)=> SelectCategoryBy(
+              categoryName: widget.categoryName,
+            )));
             debugPrint(widget.categoryName);
           },
         ),
