@@ -67,9 +67,12 @@ class _CategoryItemState extends State<CategoryItem> {
                 color: Colors.grey, fontSize: 18, fontWeight: FontWeight.bold),
           ),
           onTap: () {
-            Navigator.push(context,MaterialPageRoute(builder: (context)=> SelectCategoryBy(
-              categoryName: widget.categoryName,
-            )));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SelectCategoryBy(
+                          categoryName: widget.categoryName,
+                        )));
             debugPrint(widget.categoryName);
           },
         ),

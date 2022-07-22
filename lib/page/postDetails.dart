@@ -30,7 +30,10 @@ class PostDetails extends StatelessWidget {
               height: 22,
             ),
             Container(
-              child: Image.network(image, height: 250,),
+              child: Image.network(
+                image,
+                height: 250,
+              ),
             ),
             SizedBox(
               height: 20,

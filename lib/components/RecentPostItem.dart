@@ -101,7 +101,6 @@ class _RecentItemState extends State<RecentItem> {
                 ),
               ),
             ),
-
             Row(
               children: [
                 Padding(
@@ -109,7 +108,6 @@ class _RecentItemState extends State<RecentItem> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Padding(
                         padding: const EdgeInsets.all(0.0),
                         child: Row(
@@ -130,7 +128,6 @@ class _RecentItemState extends State<RecentItem> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -148,8 +145,6 @@ class _RecentItemState extends State<RecentItem> {
                 ),
               ],
             ),
-
-
           ],
         ),
         Container(

@@ -1,4 +1,6 @@
 import 'package:blogfluttermysql/components/TopPostCard.dart';
+import 'package:blogfluttermysql/page/ContactUs.dart';
+import 'package:blogfluttermysql/page/aboutUs.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -35,6 +37,57 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Widget menuDrawer() {
+      return Drawer(
+        child: ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: BoxDecoration(color: Colors.pinkAccent),
+              currentAccountPicture: GestureDetector(
+                child: CircleAvatar(
+                  backgroundColor:Colors.white ,
+                  child: Icon(Icons.person),
+                ),
+              ),
+              accountName: Text('Shawon'),
+              accountEmail: Text("Shawon@gmail.com"),
+            ),
+            ListTile(
+              onTap: (){
+                debugPrint("Home");
+              },
+              leading: Icon(Icons.home,color: Colors.green,),
+              title: Text('Home',style: TextStyle(color: Colors.green),),
+            ),
+            ListTile(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>AboutUs()));
+                debugPrint("About Us");
+              },
+              leading: Icon(Icons.label,color: Colors.grey,),
+              title: Text('About Us',style: TextStyle(color: Colors.grey),),
+            ),
+            ListTile(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ContactUs()));
+                debugPrint("Contact Us");
+              },
+              leading: Icon(Icons.contacts,color: Colors.amber,),
+              title: Text('Contact Us',style: TextStyle(color: Colors.amber),),
+            ),
+
+            ListTile(
+              onTap: (){
+                debugPrint("Login");
+              },
+              leading: Icon(Icons.lock_open,color: Colors.red,),
+              title: Text('Login',style: TextStyle(color: Colors.red),),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -56,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      drawer: Drawer(),
+      drawer: menuDrawer(),
       body: ListView(
         children: [
           Padding(
@@ -94,7 +147,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           CategoryListItem(),
-
           RecentPostItem(),
         ],
       ),
