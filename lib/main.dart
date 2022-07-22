@@ -4,6 +4,7 @@ import 'package:blogfluttermysql/components/TopPostCard.dart';
 import 'package:blogfluttermysql/page/ContactUs.dart';
 import 'package:blogfluttermysql/page/Login.dart';
 import 'package:blogfluttermysql/page/aboutUs.dart';
+import 'package:blogfluttermysql/page/introScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -11,8 +12,12 @@ import 'components/CategoryListItem.dart';
 import 'components/RecentPostItem.dart';
 import 'package:http/http.dart' as http;
 
-void main() {
-  runApp(MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MaterialApp(
+    home: IntroScreen(),
+    debugShowCheckedModeBanner: false,
+  ));
 }
 
 class MyApp extends StatelessWidget {
