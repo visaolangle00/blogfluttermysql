@@ -36,7 +36,7 @@ class _AddEditPostState extends State<AddEditPost> {
 
   Future addEditPost()async{
     if(editMode){
-      var uri = Uri.parse("http://192.168.1.3/flutter/blog_flutter/updatePost.php");
+      var uri = Uri.parse("http://192.168.1.9/flutter/blog_flutter/updatePost.php");
       var request = http.MultipartRequest("POST", uri);
       request.fields['id'] = widget.postList[widget.index]['id'];
       request.fields['title'] = title.text;
@@ -56,7 +56,7 @@ class _AddEditPostState extends State<AddEditPost> {
         print(title.text);
       }
     }else{
-      var uri = Uri.parse("http://192.168.1.3/flutter/blog_flutter/addPost.php");
+      var uri = Uri.parse("http://192.168.1.9/flutter/blog_flutter/addPost.php");
       var request = http.MultipartRequest("POST", uri);
       request.fields['title'] = title.text;
       request.fields['body']=body.text;
@@ -79,7 +79,7 @@ class _AddEditPostState extends State<AddEditPost> {
   }
 
   Future getAllCategory() async {
-    var url = "http://192.168.1.3/flutter/blog_flutter/CategoryAll.php";
+    var url = "http://192.168.1.9/flutter/blog_flutter/CategoryAll.php";
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
@@ -145,7 +145,7 @@ class _AddEditPostState extends State<AddEditPost> {
 
 
 
-          editMode ? Container(child: Image.network('http://192.168.1.3/flutter/blog_flutter/uploads/${widget.postList[widget.index]['image']}'),
+          editMode ? Container(child: Image.network('http://192.168.1.9/flutter/blog_flutter/uploads/${widget.postList[widget.index]['image']}'),
           width: 100, height: 100,
           ) : Text(''),
 

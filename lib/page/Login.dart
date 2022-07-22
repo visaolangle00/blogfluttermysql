@@ -15,7 +15,7 @@ class _LoginState extends State<Login> {
   TextEditingController pass = TextEditingController();
 
   Future login() async {
-    var url = "http://192.168.1.3/flutter/blog_flutter/login.php";
+    var url = "http://192.168.1.9/flutter/blog_flutter/login.php";
     var response = await http
         .post(url, body: {"username": user.text, "password": pass.text});
     if (response.statusCode == 200) {

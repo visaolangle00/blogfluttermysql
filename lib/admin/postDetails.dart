@@ -17,7 +17,7 @@ class _PostDetailsState extends State<PostDetails> {
   List post = List();
 
   Future getAllPost() async {
-    var url = "http://192.168.1.3/flutter/blog_flutter/postAll.php";
+    var url = "http://192.168.1.9/flutter/blog_flutter/postAll.php";
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
@@ -103,7 +103,7 @@ class _PostDetailsState extends State<PostDetails> {
                           color: Colors.green,
                           onPressed: () async{
 
-                            var url = "http://192.168.1.3/flutter/blog_flutter/deletePost.php";
+                            var url = "http://192.168.1.9/flutter/blog_flutter/deletePost.php";
                             var response = await http.post(url,body:{"id":post[index]['id']});
                             if(response.statusCode ==200){
                               Fluttertoast.showToast(msg: 'Post Update Successful',fontSize: 20);
