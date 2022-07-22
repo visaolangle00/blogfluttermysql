@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class TopPostCard extends StatefulWidget {
+  final userEmail;
+  TopPostCard({this.userEmail});
   @override
   _TopPostCardState createState() => _TopPostCardState();
 }
@@ -13,7 +15,7 @@ class _TopPostCardState extends State<TopPostCard> {
   List postData = List();
 
   Future showAllPost() async {
-    var url = "http://192.168.1.9/flutter/blog_flutter/postAll.php";
+    var url = "http://192.168.1.10/flutter/blog_flutter/postAll.php";
     var response = await http.get(url, headers: {"Accept": "application/json"});
 
     if (response.statusCode == 200) {
@@ -45,23 +47,27 @@ class _TopPostCardState extends State<TopPostCard> {
           //scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             return NewPostItem(
+              id: postData[index]['id'],
               author: postData[index]['author'],
               body: postData[index]['body'],
               categoryName: postData[index]['category_name'],
               comments: postData[index]['comments'],
               image:
-                  'http://192.168.1.9/flutter/blog_flutter/uploads/${postData[index]['image']}',
+                  'http://192.168.1.10/flutter/blog_flutter/uploads/${postData[index]['image']}',
               postDate: postData[index]['post_date'],
               totalLike: postData[index]['total_like'],
               createDate: postData[index]['create_date'],
               title: postData[index]['title'],
+              userEmail: widget.userEmail,
             );
           }),
+
     );
   }
 }
 
 class NewPostItem extends StatefulWidget {
+  final id;
   final image;
   final author;
   final postDate;
@@ -71,7 +77,9 @@ class NewPostItem extends StatefulWidget {
   final body;
   final categoryName;
   final createDate;
+  final userEmail;
   NewPostItem({
+    this.id,
     this.image,
     this.author,
     this.postDate,
@@ -81,6 +89,7 @@ class NewPostItem extends StatefulWidget {
     this.body,
     this.categoryName,
     this.createDate,
+    this.userEmail,
   });
   @override
   _NewPostItemState createState() => _NewPostItemState();
@@ -204,11 +213,13 @@ class _NewPostItemState extends State<NewPostItem> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => PostDetails(
+                            id: widget.id,
                             title: widget.title,
                             image: widget.image,
                             author: widget.author,
                             body: widget.body,
                             postDate: widget.postDate,
+                            userEmail: widget.userEmail,
                           )));
             },
           ),

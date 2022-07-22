@@ -17,7 +17,7 @@ class _AddEditCategoryState extends State<AddEditCategory> {
   Future addEditCategory() async {
     if (categoryNameController.text != "") {
       if (editMode) {
-        var url = "http://192.168.1.9/flutter/blog_flutter/updateCategory.php";
+        var url = "http://192.168.1.10/flutter/blog_flutter/updateCategory.php";
         var response = await http.post(url, body: {
           "id": widget.categoryList[widget.index]['id'],
           "name": categoryNameController.text
@@ -41,7 +41,7 @@ class _AddEditCategoryState extends State<AddEditCategory> {
           );
         }
       } else {
-        var url = "http://192.168.1.9/flutter/blog_flutter/addCategory.php";
+        var url = "http://192.168.1.10/flutter/blog_flutter/addCategory.php";
         var response = await http.post(url, body: {
           //"id": widget.categoryList[widget.index]['id'],
           "name": categoryNameController.text
