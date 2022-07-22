@@ -93,10 +93,15 @@ class _RecentItemState extends State<RecentItem> {
                   );
                   //debugPrint(widget.title);
                 },
-                child: Text(
-                  widget.title,
-                  style: TextStyle(
-                    fontSize: 20,
+                child: Container(
+                  width: 300,
+                  child: Text(
+                    widget.title,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'Rubik',
+                      color: Colors.white
+                    ),
                   ),
                 ),
               ),

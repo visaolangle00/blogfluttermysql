@@ -1,4 +1,3 @@
-
 import 'package:blogfluttermysql/admin/categoryDetails.dart';
 import 'package:blogfluttermysql/admin/postDetails.dart';
 import 'package:blogfluttermysql/main.dart';
@@ -8,7 +7,8 @@ import 'package:flutter/material.dart';
 class Dashboard extends StatefulWidget {
   final name;
   final username;
-  Dashboard({this.name = "Guest",this.username = ""});
+  final author;
+  Dashboard({this.name = "Guest", this.username = "", this.author});
   @override
   _DashboardState createState() => _DashboardState();
 }
@@ -16,7 +16,6 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-
     Widget menuDrawer() {
       return Drawer(
         child: ListView(
@@ -62,8 +61,12 @@ class _DashboardState extends State<Dashboard> {
             ),
             ListTile(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PostDetails()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PostDetails(
+                              author: widget.name,
+                            )));
                 debugPrint("Add post");
               },
               leading: Icon(
@@ -75,46 +78,82 @@ class _DashboardState extends State<Dashboard> {
                 style: TextStyle(color: Colors.blue),
               ),
             ),
-            widget.name =="Guest"
+            widget.name == "Guest"
                 ? ListTile(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Login()));
-                debugPrint("Login");
-              },
-              leading: Icon(
-                Icons.lock,
-                color: Colors.red,
-              ),
-              title: Text(
-                'Login',
-                style: TextStyle(color: Colors.red),
-              ),
-            )
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Login()));
+                      debugPrint("Login");
+                    },
+                    leading: Icon(
+                      Icons.lock,
+                      color: Colors.red,
+                    ),
+                    title: Text(
+                      'Login',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  )
                 : ListTile(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyHomePage()));
-                debugPrint("Login");
-              },
-              leading: Icon(
-                Icons.lock_open,
-                color: Colors.red,
-              ),
-              title: Text(
-                'Logout',
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyHomePage()));
+                      debugPrint("Login");
+                    },
+                    leading: Icon(
+                      Icons.lock_open,
+                      color: Colors.red,
+                    ),
+                    title: Text(
+                      'Logout',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
           ],
         ),
       );
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Dashboard'),),
+      appBar: AppBar(
+        title: Text('Dashboard'),
+      ),
       drawer: menuDrawer(),
-      body: Container(),
+      body: ListView(
+        children: [
+          myGridView(),
+        ],
+      ),
+    );
+  }
+
+  Widget myGridView() {
+    return SingleChildScrollView(
+      child: Container(
+        height: 250,
+        child: GridView.count(
+          crossAxisSpacing: 5,
+          crossAxisCount: 2,
+          mainAxisSpacing: 5,
+          padding: EdgeInsets.all(5),
+          children: [
+            Container(
+              color: Colors.purple,
+              child: Center(
+                child: Text("Total Post 10", style: TextStyle(fontSize: 20, fontFamily: 'Rubik'),),
+              ),
+            ),
+            Container(
+              color: Colors.green,
+              child: Center(
+                child: Text("Total Post 10"),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

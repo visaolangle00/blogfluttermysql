@@ -71,7 +71,7 @@ class _LoginState extends State<Login> {
       } else {
         if(userData['status']== "Admin"){
           Navigator.push(context, MaterialPageRoute(builder: (context)=> Dashboard(
-            name:"Test " + userData['name'],
+            name:""+ userData['name'],
             username: "XYZ" + userData['username'],
           ),),);
         }else{

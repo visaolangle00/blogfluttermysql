@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class PostDetails extends StatefulWidget {
+  final author;
+  PostDetails({this.author});
   @override
   _PostDetailsState createState() => _PostDetailsState();
 }
@@ -39,7 +41,9 @@ class _PostDetailsState extends State<PostDetails> {
         actions: [
           IconButton(onPressed: (){
             Navigator.push(context, MaterialPageRoute(
-              builder: (context) => AddEditPost(),
+              builder: (context) => AddEditPost(
+                author: widget.author,
+              ),
             ));
           }, icon: Icon(Icons.add),),
         ],
@@ -55,7 +59,7 @@ class _PostDetailsState extends State<PostDetails> {
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) => AddEditPost(
-                      postList: post, index: index,
+                      postList: post, index: index, author: widget.author,
                     ),
                   ));
                 },
