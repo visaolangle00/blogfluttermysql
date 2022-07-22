@@ -15,7 +15,7 @@ class _LoginState extends State<Login> {
   TextEditingController pass = TextEditingController();
 
   Future login() async {
-    var url = "http://192.168.1.12/flutter/blog_flutter/login.php";
+    var url = "http://192.168.1.3/flutter/blog_flutter/login.php";
     var response = await http
         .post(url, body: {"username": user.text, "password": pass.text});
     if (response.statusCode == 200) {
@@ -70,7 +70,10 @@ class _LoginState extends State<Login> {
         );
       } else {
         if(userData['status']== "Admin"){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> Dashboard(),),);
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> Dashboard(
+            name:"Test " + userData['name'],
+            username: "XYZ" + userData['username'],
+          ),),);
         }else{
           Navigator.push(context, MaterialPageRoute(builder: (context)=> MyHomePage(
             name: userData['name'],

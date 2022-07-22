@@ -13,7 +13,7 @@ class _RecentPostItemState extends State<RecentPostItem> {
   List recentPost = List();
 
   Future recentPostData() async {
-    var url = "http://192.168.1.12/flutter/blog_flutter/postAll.php";
+    var url = "http://192.168.1.3/flutter/blog_flutter/postAll.php";
     var response = await http.get(url, headers: {"Accept": "application/json"});
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
@@ -45,7 +45,7 @@ class _RecentPostItemState extends State<RecentPostItem> {
             date: recentPost[index]['create_date'],
             body: recentPost[index]['body'],
             image:
-                "http://192.168.1.12/flutter/blog_flutter/uploads/${recentPost[index]['image']}",
+                "http://192.168.1.3/flutter/blog_flutter/uploads/${recentPost[index]['image']}",
           );
         },
       ),

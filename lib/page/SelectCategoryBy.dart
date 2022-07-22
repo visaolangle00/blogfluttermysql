@@ -15,7 +15,7 @@ class _SelectCategoryByState extends State<SelectCategoryBy> {
   List categoryByPost = List();
 
   Future categoryByData() async {
-    var url = "http://192.168.1.12/flutter/blog_flutter/categoryByPost.php";
+    var url = "http://192.168.1.3/flutter/blog_flutter/categoryByPost.php";
     var response =
         await http.post(url, body: {'category_name': widget.categoryName});
     if (response.statusCode == 200) {
@@ -50,7 +50,7 @@ class _SelectCategoryByState extends State<SelectCategoryBy> {
                 categoryName: categoryByPost[index]['category_name'],
                 comments: categoryByPost[index]['comments'],
                 image:
-                    'http://192.168.1.12/flutter/blog_flutter/uploads/${categoryByPost[index]['image']}',
+                    'http://192.168.1.3/flutter/blog_flutter/uploads/${categoryByPost[index]['image']}',
                 postDate: categoryByPost[index]['post_date'],
                 totalLike: categoryByPost[index]['total_like'],
                 createDate: categoryByPost[index]['create_date'],

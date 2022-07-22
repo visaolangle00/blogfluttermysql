@@ -17,7 +17,7 @@ class _SignUpState extends State<SignUp> {
   TextEditingController name = TextEditingController();
 
   Future signUp() async {
-    var url = "http://192.168.1.12/flutter/blog_flutter/register.php";
+    var url = "http://192.168.1.3/flutter/blog_flutter/register.php";
     var response = await http
         .post(url, body: {"username":user.text, "password":pass.text, "name":name.text});
    // .post(url, body: {"username":"testest", "password":"123"});
@@ -40,7 +40,9 @@ class _SignUpState extends State<SignUp> {
       }
       else{
         if(userData['status']== "Admin"){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> Dashboard(),),);
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> Dashboard(
+            name: userData['name'],
+          ),),);
         }else{
           Navigator.push(context, MaterialPageRoute(builder: (context)=> MyHomePage(name: userData['name'],email: userData['username'],),),);
         }
