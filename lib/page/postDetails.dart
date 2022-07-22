@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class PostDetails extends StatefulWidget {
   final id;
@@ -47,7 +48,6 @@ class _PostDetailsState extends State<PostDetails> {
     flutterLocalNotificationsPlugin.initialize(initilize,
         onSelectNotification: onSelectNotification);
   }
-
 
   Future onSelectNotification(String payload) async {
     if (payload != null) {
@@ -93,8 +93,6 @@ class _PostDetailsState extends State<PostDetails> {
     print(isLikeOrDislike);
   }
 
-
-
   Future addComments() async {
     var url = "http://192.168.1.13/flutter/blog_flutter/addComments.php";
     var response = await http.post(url, body: {
@@ -114,6 +112,30 @@ class _PostDetailsState extends State<PostDetails> {
 
   @override
   Widget build(BuildContext context) {
+    ratingAlert(String msg) {
+      showDialog(
+        context: (context),
+        builder: (context) => AlertDialog(
+          title: Text('Rating Status'),
+          content: Text(
+            msg,
+            style: TextStyle(
+              fontSize: 40,
+            ),
+          ),
+          actions: [
+            RaisedButton(
+              color: Colors.red,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Cancel"),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Post Details"),
@@ -217,7 +239,55 @@ class _PostDetailsState extends State<PostDetails> {
                       );
                     },
                   ),
-
+                  SizedBox(
+                    width: 50,
+                  ),
+                  RatingBar.builder(
+                    onRatingUpdate: (rating) {
+                      rating == 5
+                          ? ratingAlert('Love It')
+                          : ((rating < 5) && (rating > 3))
+                              ? ratingAlert('Its Ok')
+                              : ((rating < 4) && (rating > 2))
+                                  ? ratingAlert('Dislike It!')
+                                  : ratingAlert('Hate It');
+                      print(rating);
+                    },
+                    direction: Axis.horizontal,
+                    itemCount: 5,
+                    initialRating: 3,
+                    itemSize: 30,
+                    itemBuilder: (context, index) {
+                      switch (index) {
+                        case 0:
+                          return Icon(
+                            Icons.sentiment_very_dissatisfied,
+                            color: Colors.red,
+                          );
+                        case 1:
+                          return Icon(
+                            Icons.sentiment_dissatisfied,
+                            color: Colors.redAccent,
+                          );
+                        case 2:
+                          return Icon(
+                            Icons.sentiment_neutral,
+                            color: Colors.amber,
+                          );
+                        case 3:
+                          return Icon(
+                            Icons.sentiment_satisfied,
+                            color: Colors.greenAccent,
+                          );
+                        case 4:
+                          return Icon(
+                            Icons.sentiment_very_satisfied,
+                            color: Colors.green,
+                          );
+                      }
+                      return null;
+                    },
+                  ),
                 ],
               ),
             ),
