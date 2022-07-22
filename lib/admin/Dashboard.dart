@@ -2,7 +2,10 @@ import 'package:blogfluttermysql/admin/categoryDetails.dart';
 import 'package:blogfluttermysql/admin/postDetails.dart';
 import 'package:blogfluttermysql/main.dart';
 import 'package:blogfluttermysql/page/Login.dart';
+import 'package:blogfluttermysql/page/UnSeenNotificationPage.dart';
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart';
+import 'package:http/http.dart' as http;
 
 class Dashboard extends StatefulWidget {
   final name;
@@ -14,6 +17,28 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  bool isSeen = true;
+
+  var total;
+  Future getTotalUnSeenNotification() async {
+    var url =
+        "http://192.168.1.13/flutter/blog_flutter/selectCommentsNotification.php";
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      setState(() {
+        total = response.body;
+      });
+    }
+    print(total);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getTotalUnSeenNotification();
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget menuDrawer() {
@@ -119,6 +144,38 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Dashboard'),
+        actions: [
+          isSeen
+              ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(context,MaterialPageRoute(builder: (_)=>UnSeenNotificationPage(),),).whenComplete(() => getTotalUnSeenNotification());
+                    debugPrint('seen');
+                  },
+                  child: Badge(
+                    badgeContent: Text(
+                      '$total',
+                      style: TextStyle(color: Colors.white, fontSize: 10.0),
+                    ),
+                    child: Icon(Icons.notifications_active),
+                  ),
+                ),
+              )
+              : Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: InkWell(
+                    onTap: () {},
+                    child: Badge(
+                      badgeContent: Text(
+                        '0',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      child: Icon(Icons.notifications_none),
+                    ),
+                  ),
+                ),
+        ],
       ),
       drawer: menuDrawer(),
       body: ListView(
@@ -142,7 +199,10 @@ class _DashboardState extends State<Dashboard> {
             Container(
               color: Colors.purple,
               child: Center(
-                child: Text("Total Post 10", style: TextStyle(fontSize: 20, fontFamily: 'Rubik'),),
+                child: Text(
+                  "Total Post 10",
+                  style: TextStyle(fontSize: 20, fontFamily: 'Rubik'),
+                ),
               ),
             ),
             Container(
