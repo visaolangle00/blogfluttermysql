@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:blogfluttermysql/page/postDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -196,7 +197,18 @@ class _NewPostItemState extends State<NewPostItem> {
                 color: Colors.grey[200],
               ),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PostDetails(
+                            title: widget.title,
+                            image: widget.image,
+                            author: widget.author,
+                            body: widget.body,
+                            postDate: widget.postDate,
+                          )));
+            },
           ),
         ),
       ],
