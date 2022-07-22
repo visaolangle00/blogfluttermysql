@@ -37,6 +37,8 @@ dev_dependencies:
   http: ^0.12.1
   image_picker: ^0.6.7+6
   fluttertoast: ^7.0.2
+  badges:
+  flutter_local_notifications: ^1.4.4+4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
