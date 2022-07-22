@@ -1,3 +1,4 @@
+import 'package:blogfluttermysql/network/api.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -17,8 +18,8 @@ class _AddEditCategoryState extends State<AddEditCategory> {
   Future addEditCategory() async {
     if (categoryNameController.text != "") {
       if (editMode) {
-        var url = "http://192.168.1.13/flutter/blog_flutter/updateCategory.php";
-        var response = await http.post(url, body: {
+        //var url = "http://192.168.1.13/flutter/blog_flutter/updateCategory.php";
+        var response = await http.post(BASEURL.updateCategory, body: {
           "id": widget.categoryList[widget.index]['id'],
           "name": categoryNameController.text
         });
@@ -41,8 +42,8 @@ class _AddEditCategoryState extends State<AddEditCategory> {
           );
         }
       } else {
-        var url = "http://192.168.1.13/flutter/blog_flutter/addCategory.php";
-        var response = await http.post(url, body: {
+        //var url = "http://192.168.1.13/flutter/blog_flutter/addCategory.php";
+        var response = await http.post(BASEURL.addCategory, body: {
           //"id": widget.categoryList[widget.index]['id'],
           "name": categoryNameController.text
         });

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:blogfluttermysql/admin/categoryDetails.dart';
 import 'package:blogfluttermysql/admin/postDetails.dart';
 import 'package:blogfluttermysql/main.dart';
+import 'package:blogfluttermysql/network/api.dart';
 import 'package:blogfluttermysql/page/Login.dart';
 import 'package:blogfluttermysql/page/UnSeenNotificationPage.dart';
 import 'package:flutter/material.dart';
@@ -35,9 +36,8 @@ class _DashboardState extends State<Dashboard> {
 
   var total;
   Future getTotalUnSeenNotification() async {
-    var url =
-        "http://192.168.1.13/flutter/blog_flutter/selectCommentsNotification.php";
-    var response = await http.get(url);
+    //var url = "http://192.168.1.13/flutter/blog_flutter/selectCommentsNotification.php";
+    var response = await http.get(BASEURL.selectCommentsNotification);
     if (response.statusCode == 200) {
       setState(() {
         total = response.body;
@@ -48,8 +48,8 @@ class _DashboardState extends State<Dashboard> {
 
   var totalPost;
   Future getTotalPost() async {
-    var url = "http://192.168.1.13/flutter/blog_flutter/totalPost.php";
-    var response = await http.get(url);
+    //var url = "http://192.168.1.13/flutter/blog_flutter/totalPost.php";
+    var response = await http.get(BASEURL.totalPost);
     if (response.statusCode == 200) {
       setState(() {
         totalPost = response.body;
@@ -64,8 +64,8 @@ class _DashboardState extends State<Dashboard> {
 
   var totalCategory;
   Future getTotalCategory() async {
-    var url = "http://192.168.1.13/flutter/blog_flutter/totalCategory.php";
-    var response = await http.get(url);
+    //var url = "http://192.168.1.13/flutter/blog_flutter/totalCategory.php";
+    var response = await http.get(BASEURL.totalCategory);
     if (response.statusCode == 200) {
       setState(() {
         totalCategory = response.body;
@@ -76,8 +76,8 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Future showAllData()async{
-    var url = "http://192.168.1.13/flutter/blog_flutter/getchart.php";
-    var response = await http.get(url);
+    //var url = "http://192.168.1.13/flutter/blog_flutter/getchart.php";
+    var response = await http.get(BASEURL.getchart);
     if(response.statusCode==200){
       var jsonData =json.decode(response.body);
       List data= jsonData;

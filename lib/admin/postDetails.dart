@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:blogfluttermysql/admin/addEditCategory.dart';
 import 'package:blogfluttermysql/admin/addEditPost.dart';
+import 'package:blogfluttermysql/network/api.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
@@ -17,8 +18,8 @@ class _PostDetailsState extends State<PostDetails> {
   List post = List();
 
   Future getAllPost() async {
-    var url = "http://192.168.1.13/flutter/blog_flutter/postAll.php";
-    var response = await http.get(url);
+   // var url = "http://192.168.1.13/flutter/blog_flutter/postAll.php";
+    var response = await http.get(BASEURL.postAll);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       setState(() {
@@ -103,8 +104,8 @@ class _PostDetailsState extends State<PostDetails> {
                           color: Colors.green,
                           onPressed: () async{
 
-                            var url = "http://192.168.1.13/flutter/blog_flutter/deletePost.php";
-                            var response = await http.post(url,body:{"id":post[index]['id']});
+                            //var url = "http://192.168.1.13/flutter/blog_flutter/deletePost.php";
+                            var response = await http.post(BASEURL.deletePost,body:{"id":post[index]['id']});
                             if(response.statusCode ==200){
                               Fluttertoast.showToast(msg: 'Post Update Successful',fontSize: 20);
                               setState(() {

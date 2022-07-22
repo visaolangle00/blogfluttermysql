@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:blogfluttermysql/network/api.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
@@ -37,7 +38,7 @@ class _AddEditPostState extends State<AddEditPost> {
   Future addEditPost() async {
     if (editMode) {
       var uri =
-          Uri.parse("http://192.168.1.13/flutter/blog_flutter/updatePost.php");
+          Uri.parse(BASEURL.updatePost);
       var request = http.MultipartRequest("POST", uri);
       request.fields['id'] = widget.postList[widget.index]['id'];
       request.fields['title'] = title.text;
@@ -59,7 +60,7 @@ class _AddEditPostState extends State<AddEditPost> {
       }
     } else {
       var uri =
-          Uri.parse("http://192.168.1.13/flutter/blog_flutter/addPost.php");
+          Uri.parse(BASEURL.addPost);
       var request = http.MultipartRequest("POST", uri);
       request.fields['title'] = title.text;
       request.fields['body'] = body.text;
@@ -82,8 +83,8 @@ class _AddEditPostState extends State<AddEditPost> {
   }
 
   Future getAllCategory() async {
-    var url = "http://192.168.1.13/flutter/blog_flutter/CategoryAll.php";
-    var response = await http.get(url);
+    //var url = "http://192.168.1.13/flutter/blog_flutter/CategoryAll.php";
+    var response = await http.get(BASEURL.CategoryAll);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       setState(() {
@@ -144,7 +145,9 @@ class _AddEditPostState extends State<AddEditPost> {
           editMode
               ? Container(
                   child: Image.network(
-                      'http://192.168.1.13/flutter/blog_flutter/uploads/${widget.postList[widget.index]['image']}'),
+                      //'http://192.168.1.13/flutter/blog_flutter/uploads/${widget.postList[widget.index]['image']}'
+                    BASEURL.Image+'${widget.postList[widget.index]['image']}'
+                  ),
                   width: 100,
                   height: 100,
                 )

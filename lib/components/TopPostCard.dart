@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:blogfluttermysql/network/api.dart';
 import 'package:blogfluttermysql/page/postDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -15,8 +16,8 @@ class _TopPostCardState extends State<TopPostCard> {
   List postData = List();
 
   Future showAllPost() async {
-    var url = "http://192.168.1.13/flutter/blog_flutter/postAll.php";
-    var response = await http.get(url, headers: {"Accept": "application/json"});
+    //var url = "http://192.168.1.13/flutter/blog_flutter/postAll.php";
+    var response = await http.get(BASEURL.postAll, headers: {"Accept": "application/json"});
 
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
@@ -53,7 +54,8 @@ class _TopPostCardState extends State<TopPostCard> {
               categoryName: postData[index]['category_name'],
               comments: postData[index]['comments'],
               image:
-                  'http://192.168.1.13/flutter/blog_flutter/uploads/${postData[index]['image']}',
+                 // 'http://192.168.1.13/flutter/blog_flutter/uploads/${postData[index]['image']}',
+                  BASEURL.Image+'${postData[index]['image']}',
               postDate: postData[index]['post_date'],
               totalLike: postData[index]['total_like'],
               createDate: postData[index]['create_date'],

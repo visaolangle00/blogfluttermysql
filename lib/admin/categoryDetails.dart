@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:blogfluttermysql/admin/addEditCategory.dart';
+import 'package:blogfluttermysql/network/api.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,8 +14,8 @@ class _CategoryDetailsState extends State<CategoryDetails> {
   List category = List();
 
   Future getAllCategory() async {
-    var url = "http://192.168.1.13/flutter/blog_flutter/CategoryAll.php";
-    var response = await http.get(url);
+    //var url = "http://192.168.1.13/flutter/blog_flutter/CategoryAll.php";
+    var response = await http.get(BASEURL.CategoryAll);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       setState(() {
@@ -60,8 +61,8 @@ class _CategoryDetailsState extends State<CategoryDetails> {
             ),
             title: Text(category[index]['name']),
             trailing: IconButton(onPressed: () async{
-              var url = "http://192.168.1.13/flutter/blog_flutter/deleteCategory.php";
-              var response = await http.post(url, body:{"id":category[index]['id']});
+              //var url = "http://192.168.1.13/flutter/blog_flutter/deleteCategory.php";
+              var response = await http.post(BASEURL.deleteCategory, body:{"id":category[index]['id']});
               if(response.statusCode ==200){
                showDialog(context: (context), builder: (context) => AlertDialog(
                  title: Text('Message'),

@@ -1,5 +1,6 @@
 import 'package:blogfluttermysql/admin/Dashboard.dart';
 import 'package:blogfluttermysql/main.dart';
+import 'package:blogfluttermysql/network/api.dart';
 import 'package:blogfluttermysql/page/Signup.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -15,9 +16,9 @@ class _LoginState extends State<Login> {
   TextEditingController pass = TextEditingController();
 
   Future login() async {
-    var url = "http://192.168.1.13/flutter/blog_flutter/login.php";
+    //var url = "http://192.168.1.13/flutter/blog_flutter/login.php";
     var response = await http
-        .post(url, body: {"username": user.text, "password": pass.text});
+        .post(BASEURL.login, body: {"username": user.text, "password": pass.text});
     if (response.statusCode == 200) {
 //      var userData = json.decode(response.body);
 //      if (userData == "ERROR") {

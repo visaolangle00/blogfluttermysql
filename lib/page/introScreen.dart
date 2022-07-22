@@ -2,27 +2,15 @@ import 'package:blogfluttermysql/main.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
 import 'package:intro_views_flutter/Models/page_view_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:after_layout/after_layout.dart';
+
+
 
 class IntroScreen extends StatefulWidget {
   @override
   _IntroScreenState createState() => _IntroScreenState();
 }
 
-class _IntroScreenState extends State<IntroScreen> with AfterLayoutMixin<IntroScreen> {
-
-  Future _checkIntro()async{
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    bool _seen = (preferences.getBool('seen') ??false);
-    if(_seen){
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>MyHomePage(),),);
-    }else{
-      preferences.setBool('seen', true);
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>IntroScreen(),),);
-    }
-
-  }
+class _IntroScreenState extends State<IntroScreen>  {
 
 
   final pages = [
@@ -59,8 +47,5 @@ class _IntroScreenState extends State<IntroScreen> with AfterLayoutMixin<IntroSc
     });
   }
 
-  @override
-  void afterFirstLayout(BuildContext context) {
-    _checkIntro();
-  }
+
 }

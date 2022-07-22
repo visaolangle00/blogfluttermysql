@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:blogfluttermysql/network/api.dart';
 import 'package:blogfluttermysql/page/postDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -13,8 +14,8 @@ class _RecentPostItemState extends State<RecentPostItem> {
   List recentPost = List();
 
   Future recentPostData() async {
-    var url = "http://192.168.1.13/flutter/blog_flutter/postAll.php";
-    var response = await http.get(url, headers: {"Accept": "application/json"});
+    //var url = "http://192.168.1.13/flutter/blog_flutter/postAll.php";
+    var response = await http.get(BASEURL.postAll, headers: {"Accept": "application/json"});
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       setState(() {
@@ -45,7 +46,8 @@ class _RecentPostItemState extends State<RecentPostItem> {
             date: recentPost[index]['create_date'],
             body: recentPost[index]['body'],
             image:
-                "http://192.168.1.13/flutter/blog_flutter/uploads/${recentPost[index]['image']}",
+                //"http://192.168.1.13/flutter/blog_flutter/uploads/${recentPost[index]['image']}",
+            BASEURL.Image+'${recentPost[index]['image']}'
           );
         },
       ),

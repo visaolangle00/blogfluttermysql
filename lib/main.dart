@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:blogfluttermysql/components/TopPostCard.dart';
+import 'package:blogfluttermysql/network/api.dart';
 import 'package:blogfluttermysql/page/ContactUs.dart';
 import 'package:blogfluttermysql/page/Login.dart';
 import 'package:blogfluttermysql/page/aboutUs.dart';
@@ -52,8 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List searchList = [];
 
   Future showAllPost() async {
-    var url = "http://192.168.1.13/flutter/blog_flutter/postAll.php";
-    var response = await http.get(url, headers: {"Accept": "application/json"});
+   // var url = "http://192.168.1.13/flutter/blog_flutter/postAll.php";
+    var response = await http.get(BASEURL.postAll, headers: {"Accept": "application/json"});
 
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
@@ -240,8 +241,8 @@ class SearchPost extends SearchDelegate<String> {
   List searchTitle = List();
 
   Future showAllPost() async {
-    var url = "http://192.168.1.13/flutter/blog_flutter/searchPost.php";
-    var response = await http.post(url, body: {'title': query});
+    //var url = "http://192.168.1.13/flutter/blog_flutter/searchPost.php";
+    var response = await http.post(BASEURL.searchPost, body: {'title': query});
 
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
@@ -299,7 +300,7 @@ class SearchPost extends SearchDelegate<String> {
                     Center(
                         child: Container(
                       child: Image.network(
-                        'http://192.168.1.13/flutter/blog_flutter/uploads/${list['image']}',
+                        BASEURL.Image+'${list['image']}',
                         height: 250,
                       ),
                     )),

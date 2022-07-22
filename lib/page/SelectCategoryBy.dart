@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:blogfluttermysql/components/TopPostCard.dart';
+import 'package:blogfluttermysql/network/api.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,9 +16,9 @@ class _SelectCategoryByState extends State<SelectCategoryBy> {
   List categoryByPost = List();
 
   Future categoryByData() async {
-    var url = "http://192.168.1.13/flutter/blog_flutter/categoryByPost.php";
+    //var url = "http://192.168.1.13/flutter/blog_flutter/categoryByPost.php";
     var response =
-        await http.post(url, body: {'category_name': widget.categoryName});
+        await http.post(BASEURL.categoryByPost, body: {'category_name': widget.categoryName});
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       setState(() {
@@ -50,7 +51,7 @@ class _SelectCategoryByState extends State<SelectCategoryBy> {
                 categoryName: categoryByPost[index]['category_name'],
                 comments: categoryByPost[index]['comments'],
                 image:
-                    'http://192.168.1.13/flutter/blog_flutter/uploads/${categoryByPost[index]['image']}',
+                    BASEURL.Image+'${categoryByPost[index]['image']}',
                 postDate: categoryByPost[index]['post_date'],
                 totalLike: categoryByPost[index]['total_like'],
                 createDate: categoryByPost[index]['create_date'],

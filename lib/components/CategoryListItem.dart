@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:blogfluttermysql/network/api.dart';
 import 'package:blogfluttermysql/page/SelectCategoryBy.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -13,8 +14,8 @@ class _CategoryListItemState extends State<CategoryListItem> {
   List categories = List();
 
   Future getAllCategory() async {
-    var url = "http://192.168.1.13/flutter/blog_flutter/CategoryAll.php";
-    var response = await http.get(url);
+    //var url = "http://192.168.1.13/flutter/blog_flutter/CategoryAll.php";
+    var response = await http.get(BASEURL.CategoryAll);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
       setState(() {

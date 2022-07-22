@@ -24,8 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_share:
-  shared_preferences: ^0.5.11
-  after_layout:
+
 
 
 

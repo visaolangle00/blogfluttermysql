@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:blogfluttermysql/network/api.dart';
 import 'package:blogfluttermysql/page/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -66,8 +67,8 @@ class _PostDetailsState extends State<PostDetails> {
   }
 
   Future addLike() async {
-    var url = "http://192.168.1.13/flutter/blog_flutter/addLike.php";
-    var response = await http.post(url, body: {
+    //var url = "http://192.168.1.13/flutter/blog_flutter/addLike.php";
+    var response = await http.post(BASEURL.addLike, body: {
       //"id": widget.categoryList[widget.index]['id'],
       "user_email": widget.userEmail,
       "post_id": widget.id,
@@ -78,8 +79,8 @@ class _PostDetailsState extends State<PostDetails> {
   }
 
   Future getLikes() async {
-    var url = "http://192.168.1.13/flutter/blog_flutter/selectLike.php";
-    var response = await http.post(url, body: {
+    //var url = "http://192.168.1.13/flutter/blog_flutter/selectLike.php";
+    var response = await http.post(BASEURL.selectLike, body: {
       //"id": widget.categoryList[widget.index]['id'],
       "user_email": widget.userEmail,
       "post_id": widget.id,
@@ -94,8 +95,8 @@ class _PostDetailsState extends State<PostDetails> {
   }
 
   Future addComments() async {
-    var url = "http://192.168.1.13/flutter/blog_flutter/addComments.php";
-    var response = await http.post(url, body: {
+    //var url = "http://192.168.1.13/flutter/blog_flutter/addComments.php";
+    var response = await http.post(BASEURL.addComments, body: {
       //"id": widget.categoryList[widget.index]['id'],
       "comment": commentsController.text,
       "user_email": widget.userEmail,
@@ -106,6 +107,11 @@ class _PostDetailsState extends State<PostDetails> {
       Fluttertoast.showToast(
         msg: 'Comments Publish Successfull',
       );
+
+//      Fluttertoast.showToast(
+//        msg: 'Test',
+//      );
+
       Navigator.pop(context);
     }
   }
