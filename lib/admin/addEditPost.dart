@@ -52,6 +52,7 @@ class _AddEditPostState extends State<AddEditPost> {
 
       if(response.statusCode==200){
         Fluttertoast.showToast(msg: 'Post Update Successful');
+        Navigator.pop(context);
         print(title.text);
       }
     }else{
@@ -70,6 +71,7 @@ class _AddEditPostState extends State<AddEditPost> {
 
       if(response.statusCode==200){
         Fluttertoast.showToast(msg: 'Post Update Successful', fontSize: 25);
+        Navigator.pop(context);
         print(title.text);
       }
     }

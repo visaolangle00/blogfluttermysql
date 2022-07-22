@@ -4,6 +4,7 @@ import 'package:blogfluttermysql/admin/addEditCategory.dart';
 import 'package:blogfluttermysql/admin/addEditPost.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:fluttertoast/fluttertoast.dart';
 
 class PostDetails extends StatefulWidget {
   final author;
@@ -39,39 +40,85 @@ class _PostDetailsState extends State<PostDetails> {
       appBar: AppBar(
         title: Text('PostDetails'),
         actions: [
-          IconButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(
-              builder: (context) => AddEditPost(
-                author: widget.author,
-              ),
-            ));
-          }, icon: Icon(Icons.add),),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddEditPost(
+                      author: widget.author,
+                    ),
+                  )).whenComplete(() {
+                    getAllPost();
+              });
+            },
+            icon: Icon(Icons.add),
+          ),
         ],
       ),
       body: ListView.builder(
         itemCount: post.length,
         itemBuilder: (context, index) {
-          return Card(
-            elevation: 2,
-            child: ListTile(
-              leading: IconButton(
-                icon: Icon(Icons.edit),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => AddEditPost(
-                      postList: post, index: index, author: widget.author,
-                    ),
-                  ));
-                },
-              ),
-              title: Text(post[index]['title']),
-              subtitle: Text(
-                post[index]['body'],
-                maxLines: 2,
-              ),
-              trailing: IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {},
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              elevation: 2,
+              child: ListTile(
+                leading: IconButton(
+                  icon: Icon(Icons.edit, color: Colors.green,),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddEditPost(
+                            postList: post,
+                            index: index,
+                            author: widget.author,
+                          ),
+                        )).whenComplete((){
+                          getAllPost();
+                    });
+                  },
+                ),
+                title: Text(post[index]['title']),
+                subtitle: Text(
+                  post[index]['body'],
+                  maxLines: 2,
+                ),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete, color: Colors.red,),
+                  onPressed: () {
+                    showDialog(context: (context), builder: (context) => AlertDialog(
+                      title: Text('Message'),
+                      content: Text('Are You Sure You Want To Delete!'),
+                      actions: [
+                        RaisedButton(
+                          color: Colors.red,
+                          onPressed: (){
+                            Navigator.pop(context);
+                          },
+                          child: Text("Cancel"),
+                        ),
+                        RaisedButton(
+                          color: Colors.green,
+                          onPressed: () async{
+
+                            var url = "http://192.168.1.3/flutter/blog_flutter/deletePost.php";
+                            var response = await http.post(url,body:{"id":post[index]['id']});
+                            if(response.statusCode ==200){
+                              Fluttertoast.showToast(msg: 'Post Update Successful',fontSize: 20);
+                              setState(() {
+                                getAllPost();
+                              });
+                              Navigator.pop(context);
+                            }
+                          },
+                          child: Text("Confirm"),
+                        ),
+                      ],
+                    ));
+                  },
+                ),
               ),
             ),
           );
