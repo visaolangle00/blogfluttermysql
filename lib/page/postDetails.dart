@@ -30,7 +30,7 @@ class PostDetails extends StatelessWidget {
               height: 22,
             ),
             Container(
-              child: Image.network(image),
+              child: Image.network(image, height: 250,),
             ),
             SizedBox(
               height: 20,
@@ -38,7 +38,7 @@ class PostDetails extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                body,
+                body == null ? "" : body,
                 style: TextStyle(
                   fontSize: 20,
                 ),

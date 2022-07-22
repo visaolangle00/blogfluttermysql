@@ -15,13 +15,15 @@ class _TopPostCardState extends State<TopPostCard> {
   Future showAllPost() async {
     var url = "http://192.168.1.12/flutter/blog_flutter/postAll.php";
     var response = await http.get(url, headers: {"Accept": "application/json"});
-    var jsonData = json.decode(response.body);
 
-    setState(() {
-      postData = jsonData;
-    });
-    print(jsonData);
-    return jsonData;
+    if(response.statusCode==200){
+      var jsonData = json.decode(response.body);
+      setState(() {
+        postData = jsonData;
+      });
+      print(jsonData);
+      return jsonData;
+    }
   }
 
   @override

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'components/CategoryListItem.dart';
+import 'components/RecentPostItem.dart';
 
 void main() {
   runApp(MyApp());
@@ -93,6 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           CategoryListItem(),
+
+          RecentPostItem(),
         ],
       ),
     );
